@@ -1,5 +1,4 @@
 name: Estatísticas Profissionais
-
 on:
   schedule:
     - cron: '0 0 * * *' 
@@ -17,15 +16,15 @@ jobs:
           token: ${{ secrets.GH_TOKEN_PROFISSIONAL }}
           user: romulosuperlogica
           
-          # SAÍDA
+          # SAÍDA: NOVO NOME DE ARQUIVO
           output_dir: .
-          filename: github-activity-radical.svg 
+          filename: github-activity-profissional.svg 
 
           # CONFIGURAÇÕES DE ESTILO E TRADUÇÃO
           template: terminal 
           config_timezone: America/Sao_Paulo
           
-          # AQUI está o ajuste: Traduz o título principal
+          # Ajuste do Título Principal (activity.title)
           config_display: |
             activity.title=Recent activity (last year)
             commits.count=Commits
