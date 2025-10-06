@@ -1,6 +1,6 @@
 ### Esses são dados da minha conta profissional
 
-<p align="center">
+<p align="left">
   <a href="https://github.com/romulosuperlogica">
     <img 
       src="./github-activity-radical.svg" 
