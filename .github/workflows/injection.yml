@@ -10,7 +10,6 @@ on:
 
 jobs:
   criar_readme:
-    # O job será executado na última versão do Ubuntu
     runs-on: ubuntu-latest
     
     steps:
@@ -18,24 +17,29 @@ jobs:
       - name: Checkout do Repositório
         uses: actions/checkout@v4
         
-      # Passo 2: Cria o conteúdo do README usando comandos Shell
-      - name: Criar Conteúdo do README
+      # Passo 2: Cria/Atualiza o conteúdo do README usando comandos Shell
+      - name: Criar e Anexar Conteúdo ao README
         run: |
-          echo "# Esses são dados da minha conta profissional"
-          echo ""
-          echo "**[@romulosuperlogica](https://github.com/romulosuperlogica)** | Desenvolvedor | Contribuições Profissionais"
-          echo "<p align="center">"
-          echo "</p>"
-          echo "Ficou com dúvida? Acesse diretamente meu perfil completo em [github.com/romulosuperlogica](https://github.com/romulosuperlogica)."
+          # 1. Cria ou sobrescreve o arquivo README.md (use >)
+          echo "# Esses são dados da minha conta profissional" > README.md
+          
+          # 2. Anexa as linhas seguintes (use >>)
+          echo "" >> README.md
+          echo "**[@romulosuperlogica](https://github.com/romulosuperlogica)** | Desenvolvedor | Contribuições Profissionais" >> README.md
+          
+          # 3. Escapando as aspas duplas (ou use aspas simples)
+          echo '<p align="center">' >> README.md
+          echo '</p>' >> README.md
+          
+          echo "Ficou com dúvida? Acesse diretamente meu perfil completo em [github.com/romulosuperlogica](https://github.com/romulosuperlogica)." >> README.md
           
       # Passo 3: Commit e Push das alterações no README
-      # Usamos uma Action de terceiros para fazer o commit de forma simples
       - name: Commit e Enviar o novo README.md
         uses: EndBug/add-and-commit@v9
         with:
-          # A mensagem de commit que aparecerá no histórico
-          message: 'docs: Criação inicial do README.md via GitHub Actions'
+          # Define a mensagem de commit
+          message: 'docs: Atualiza README.md com dados de perfil'
           # Especifica o arquivo a ser adicionado
           add: 'README.md'
-          # Usa o token padrão para a Action
+          # Usa o token padrão do GitHub Actions
           token: ${{ secrets.GITHUB_TOKEN }}
