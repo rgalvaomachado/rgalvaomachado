@@ -1,9 +1,10 @@
-name: Estatísticas Profissionais (Números)
+name: Estatísticas Profissionais (Estilo Radical)
 
 on:
+  # Agenda a execução automática todos os dias à meia-noite (UTC)
   schedule:
-    # Roda a Action automaticamente uma vez por dia (meia-noite UTC)
     - cron: '0 0 * * *' 
+  # Permite execução manual pela aba "Actions"
   workflow_dispatch:
     
 jobs:
@@ -12,29 +13,40 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Gerar Card de Estatísticas (Números)
+      - name: Gerar Card de Estatísticas de Atividade
         uses: lowlighter/metrics@latest 
         with:
-          # Seu token profissional seguro
+          # TOKEN da sua conta profissional (para dados privados)
           token: ${{ secrets.GH_TOKEN_PROFISSIONAL }}
-
-          # O username que será analisado
           user: romulosuperlogica
           
-          # SAÍDA: Apontando para o arquivo que você já criou na raiz
+          # SAÍDA: Salva o arquivo na raiz
           output_dir: .
-          filename: github-metrics-stats.svg # Mudei o nome do arquivo para diferenciar!
+          filename: github-activity-radical.svg 
 
-          # CONFIGURAÇÃO DE CARD:
-          template: classic
+          # CONFIGURAÇÕES DE ESTILO (Estilo Radical: Fundo Escuro, Destaque em Pink)
+          template: terminal 
           config_timezone: America/Sao_Paulo
           
-          # BASE: activity - Exibe estatísticas de atividade (Commits, PRs, Issues)
+          # CSS Customizado para replicar o tema "Radical"
+          extras_css: |
+            svg { background: #1f1f1f !important; } 
+            h2, h3, div.field, div.field > svg, svg text { 
+              color: #ffffff !important; 
+              fill: #ffffff !important; 
+            }
+            .row svg { 
+              color: #ff3885 !important; 
+              fill: #ff3885 !important; 
+            }
+
+          # DADOS: Foco em atividade (Commits, PRs, Issues)
           base: activity 
           
-          # Desativamos o calendário 3D que você não queria
-          plugin_isocalendar: no 
-          
-          # Garante que os dados privados sejam contados
+          # Opções para garantir leitura de dados privados:
           base_activity_owner: yes
-          base_activity_limit: 10
+          
+          # Desativamos outros módulos para simplificar o card:
+          plugin_isocalendar: no 
+          plugin_languages: no
+          plugin_stars: no
