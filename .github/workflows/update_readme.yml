@@ -7,26 +7,39 @@ on:
   workflow_dispatch: # Permite rodar manualmente pela aba Actions
     
 jobs:
-  build:
+  metrics:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Gerar Gráfico de Atividade Profissional
-        # ESTA É A CORREÇÃO FINAL, APONTANDO PARA A BRANCH 'main'
-        uses: JamesIves/github-activity-readme@main 
+
+      - name: Gerar Gráfico de Atividade Profissional (Metrics)
+        # ESTA É A NOVA ACTION: metrics
+        uses: lowlighter/metrics@latest 
         with:
-          # Seu username profissional
-          USERNAME: romulosuperlogica
-          # O Segredo com o Token de Leitura
-          TOKEN: ${{ secrets.GH_TOKEN_PROFISSIONAL }} 
-          # O arquivo que a Action irá gerar
-          OUTPUT_PATH: "assets/github-activity-graph.svg"
+          # TOKEN da sua conta profissional (para acessar dados privados)
+          token: ${{ secrets.GH_TOKEN_PROFISSIONAL }}
+
+          # O username que será analisado
+          user: romulosuperlogica
+          
+          # Caminho de saída da imagem (o arquivo que você já criou)
+          output_dir: assets 
+          output_image: github-activity-graph.svg
+
+          # Módulos para exibir apenas o Calendário de Contribuição
+          template: classic
+          config_timezone: America/Sao_Paulo # Para fuso horário correto
+          base: activity # Mostra atividades (o calendário de commits)
+          
+          # Configuração para forçar a visibilidade dos dados privados
+          base_activity_owner: yes
+          base_activity_limit: 10
+          plugin_isocalendar: yes
           
       - name: Commit Files (Salvar a nova imagem)
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add -A
-          git commit -m "🤖 Atualizar Calendário Profissional (Action)" || echo "Nenhuma alteração para commitar"
+          git add assets/github-activity-graph.svg
+          git commit -m "🤖 Atualizar Calendário Profissional (Metrics Action)" || echo "Nenhuma alteração para commitar"
           git push
