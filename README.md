@@ -13,7 +13,7 @@ Para ver minhas contribuições, projetos e estatísticas mais recentes da minha
 <p align="center">
   <a href="https://github.com/romulosuperlogica">
     <img 
-      src="https://github-readme-stats.vercel.app/api?username=[SEU_USERNAME_PROFISSIONAL]&show_icons=true&theme=radical&hide_border=true" 
+      src="https://github-readme-stats.vercel.app/api?username=romulosuperlogica&show_icons=true&theme=radical&hide_border=true" 
       alt="Estatísticas do GitHub Profissional"
     />
   </a>
@@ -24,7 +24,7 @@ Para ver minhas contribuições, projetos e estatísticas mais recentes da minha
 <p align="center">
   <a href="https://github.com/romulosuperlogica">
     <img 
-      src="https://github-readme-stats.vercel.app/api/top-langs/?username=[SEU_USERNAME_PROFISSIONAL]&layout=compact&theme=radical&hide_border=true" 
+      src="https://github-readme-stats.vercel.app/api/top-langs/?username=romulosuperlogica&layout=compact&theme=radical&hide_border=true" 
       alt="Linguagens Mais Usadas Profissionalmente"
     />
   </a>
