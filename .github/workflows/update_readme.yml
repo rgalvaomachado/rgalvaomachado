@@ -1,10 +1,8 @@
 name: Estatísticas Profissionais (Estilo Radical)
 
 on:
-  # Agenda a execução automática todos os dias à meia-noite (UTC)
   schedule:
     - cron: '0 0 * * *' 
-  # Permite execução manual pela aba "Actions"
   workflow_dispatch:
     
 jobs:
@@ -16,19 +14,26 @@ jobs:
       - name: Gerar Card de Estatísticas de Atividade
         uses: lowlighter/metrics@latest 
         with:
-          # TOKEN da sua conta profissional (para dados privados)
           token: ${{ secrets.GH_TOKEN_PROFISSIONAL }}
           user: romulosuperlogica
           
-          # SAÍDA: Salva o arquivo na raiz
+          # SAÍDA
           output_dir: .
           filename: github-activity-radical.svg 
 
-          # CONFIGURAÇÕES DE ESTILO (Estilo Radical: Fundo Escuro, Destaque em Pink)
+          # CONFIGURAÇÕES DE ESTILO E TRADUÇÃO
           template: terminal 
           config_timezone: America/Sao_Paulo
           
-          # CSS Customizado para replicar o tema "Radical"
+          # Personaliza os rótulos do card para deixar claro que é do último ano
+          config_display: |
+            repositories.starred=Repositórios Estrelados
+            commits.count=Commits (Último Ano)
+            commits.total=Commits Totais
+            issues.closed=Issues Fechadas
+            pull_requests.closed=Pull Requests Fechados
+            
+          # CSS Customizado para o estilo "Radical"
           extras_css: |
             svg { background: #1f1f1f !important; } 
             h2, h3, div.field, div.field > svg, svg text { 
@@ -40,13 +45,9 @@ jobs:
               fill: #ff3885 !important; 
             }
 
-          # DADOS: Foco em atividade (Commits, PRs, Issues)
+          # DADOS: Foco em atividade anual
           base: activity 
-          
-          # Opções para garantir leitura de dados privados:
           base_activity_owner: yes
-          
-          # Desativamos outros módulos para simplificar o card:
           plugin_isocalendar: no 
           plugin_languages: no
           plugin_stars: no
