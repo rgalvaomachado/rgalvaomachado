@@ -1,0 +1,96 @@
+name: Gerador de Cartão de Visita (Injeção Markdown)
+
+on:
+  # Roda a Action todos os dias à meia-noite (UTC)
+  schedule:
+    - cron: '0 0 * * *' 
+  # Permite que você execute manualmente
+  workflow_dispatch:
+
+jobs:
+  update_readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Token necessário para o checkout e para o commit no final
+          token: ${{ secrets.GH_TOKEN_PROFISSIONAL }}
+
+      # Passo 1: Busca dos Dados Profissionais via GraphQL
+      - name: Fetch Professional Data via GraphQL
+        id: graphql
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GH_TOKEN_PROFISSIONAL }}
+          script: |
+            const query = `
+              query {
+                user(login: "romulosuperlogica") {
+                  contributionsCollection {
+                    totalCommitContributions
+                    totalPullRequestContributions
+                    totalPullRequestReviewContributions
+                  }
+                }
+              }`;
+            
+            const result = await github.graphql(query);
+            const contributions = result.user.contributionsCollection;
+            
+            // Função para formatar números com separador de milhares (ex: 1.271)
+            const formatNumber = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+            // Exporta os dados para uso no próximo passo
+            core.setOutput('commits', formatNumber(contributions.totalCommitContributions));
+            core.setOutput('prs_opened', formatNumber(contributions.totalPullRequestContributions));
+            core.setOutput('prs_reviewed', formatNumber(contributions.totalPullRequestReviewContributions));
+
+      # Passo 2: Cria o conteúdo do README.md com os dados injetados
+      - name: Create README.md Content
+        run: |
+          # Captura as variáveis do passo anterior
+          COMMITS="${{ steps.graphql.outputs.commits }}"
+          PRS_OPENED="${{ steps.graphql.outputs.prs_opened }}"
+          PRS_REVIEWED="${{ steps.graphql.outputs.prs_reviewed }}"
+          
+          # Conteúdo Markdown/HTML final, injetando as variáveis
+          README_CONTENT=$(cat << EOF
+# Esses são dados da minha conta profissional
+
+**[@romulosuperlogica](https://github.com/romulosuperlogica)** | Desenvolvedor | Contribuições Profissionais
+
+<p align="center">
+  <table align="center" style="text-align: center;">
+    <thead>
+      <tr>
+        <th style="font-size: 16px;">Commits (Último Ano)</th>
+        <th style="font-size: 16px;">PRs Abertos</th>
+        <th style="font-size: 16px;">Reviews Feitas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">${COMMITS}</td>
+        <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">${PRS_OPENED}</td>
+        <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">${PRS_REVIEWED}</td>
+      </tr>
+    </tbody>
+  </table>
+</p>
+
+Ficou com dúvida? Acesse diretamente meu perfil completo em [github.com/romulosuperlogica](https://github.com/romulosuperlogica).
+EOF
+)
+          # Escreve o conteúdo final no README.md
+          echo "$README_CONTENT" > README.md
+
+      # Passo 3: Commit do Novo README.md
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: GitHub Actions
+          author_email: action@github.com
+          message: 'chore(readme): Update professional card data (Markdown)'
+          add: 'README.md'
+          # Usa o Token para permitir a escrita (commit) no repo
+          token: ${{ secrets.GH_TOKEN_PROFISSIONAL }}
