@@ -1,10 +1,9 @@
-name: Atualizar Calendário Profissional
+name: Calendário Profissional Rápido
 
 on:
   schedule:
-    # Roda a Action automaticamente uma vez por dia (meia-noite UTC)
     - cron: '0 0 * * *' 
-  workflow_dispatch: # Permite rodar manualmente pela aba Actions
+  workflow_dispatch:
     
 jobs:
   metrics:
@@ -12,34 +11,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Gerar Gráfico de Atividade Profissional (Metrics)
-        # ESTA É A NOVA ACTION: metrics
+      - name: Gerar Calendário de Contribuições (Minimalista)
         uses: lowlighter/metrics@latest 
         with:
-          # TOKEN da sua conta profissional (para acessar dados privados)
+          # TOKEN da sua conta profissional
           token: ${{ secrets.GH_TOKEN_PROFISSIONAL }}
 
           # O username que será analisado
           user: romulosuperlogica
           
-          # Caminho de saída da imagem (o arquivo que você já criou)
-          output_dir: assets 
-          output_image: github-activity-graph.svg
+          # SAÍDA: Apontando para o arquivo que criamos na raiz
+          output_dir: .
+          filename: github-metrics.svg 
 
-          # Módulos para exibir apenas o Calendário de Contribuição
+          # CONFIGURAÇÃO MINIMALISTA:
           template: classic
-          config_timezone: America/Sao_Paulo # Para fuso horário correto
-          base: activity # Mostra atividades (o calendário de commits)
-          
-          # Configuração para forçar a visibilidade dos dados privados
-          base_activity_owner: yes
-          base_activity_limit: 10
+          config_timezone: America/Sao_Paulo
+          # Usamos APENAS o módulo de calendário de contribuições
+          base: "" 
           plugin_isocalendar: yes
           
-      - name: Commit Files (Salvar a nova imagem)
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add assets/github-activity-graph.svg
-          git commit -m "🤖 Atualizar Calendário Profissional (Metrics Action)" || echo "Nenhuma alteração para commitar"
-          git push
+          # Garante que os dados privados sejam contados
+          base_activity_owner: yes
