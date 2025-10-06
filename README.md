@@ -8,5 +8,5 @@
       />
     </a>
   </p>
-  <h2>Ficou com dúvida? Acesse diretamente meu perfil profissional em **[@romulosuperlogica](https://github.com/romulosuperlogica)**</h2>
+  <h2>Ficou com dúvida? Acesse diretamente meu perfil profissional em **https://github.com/romulosuperlogica**</h2>
 </div>
