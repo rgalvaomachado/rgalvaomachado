@@ -1,8 +1,8 @@
-### Calendário de Contribuições (Dinâmico)
+### Calendário de Contribuições Profissionais
 
 <p align="center">
   <img 
-    src="./assets/github-activity-graph.svg" 
+    src="./github-metrics.svg" 
     alt="Calendário de Contribuições Profissional (Dinâmico)" 
   />
 </p>
