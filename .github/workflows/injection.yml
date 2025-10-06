@@ -21,13 +21,12 @@ jobs:
       # Passo 2: Cria o conteúdo do README usando comandos Shell
       - name: Criar Conteúdo do README
         run: |
-          echo "# Nome do Meu Projeto Incrível" > README.md
-          echo "" >> README.md
-          echo "Este é um projeto simples e legal." >> README.md
-          echo "Adicione mais detalhes sobre o que ele faz aqui." >> README.md
-          echo "" >> README.md
-          echo "## Como Rodar" >> README.md
-          echo "\`npm install && npm start\`" >> README.md
+          echo "# Esses são dados da minha conta profissional"
+          echo ""
+          echo "**[@romulosuperlogica](https://github.com/romulosuperlogica)** | Desenvolvedor | Contribuições Profissionais"
+          echo "<p align="center">"
+          echo "</p>"
+          echo "Ficou com dúvida? Acesse diretamente meu perfil completo em [github.com/romulosuperlogica](https://github.com/romulosuperlogica)."
           
       # Passo 3: Commit e Push das alterações no README
       # Usamos uma Action de terceiros para fazer o commit de forma simples
