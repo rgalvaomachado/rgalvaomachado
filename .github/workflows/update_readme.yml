@@ -1,4 +1,4 @@
-name: Estatísticas Profissionais (Estilo Radical)
+name: Estatísticas Profissionais
 
 on:
   schedule:
@@ -25,13 +25,10 @@ jobs:
           template: terminal 
           config_timezone: America/Sao_Paulo
           
-          # Personaliza os rótulos do card para deixar claro que é do último ano
+          # AQUI está o ajuste: Traduz o título principal
           config_display: |
-            repositories.starred=Repositórios Estrelados
-            commits.count=Commits (Último Ano)
-            commits.total=Commits Totais
-            issues.closed=Issues Fechadas
-            pull_requests.closed=Pull Requests Fechados
+            activity.title=Recent activity (last year)
+            commits.count=Commits
             
           # CSS Customizado para o estilo "Radical"
           extras_css: |
