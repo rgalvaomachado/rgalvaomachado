@@ -2,9 +2,9 @@ name: Atualizar Calendário Profissional
 
 on:
   schedule:
-    # Roda a cada 24 horas (meia-noite UTC)
+    # Roda a Action automaticamente uma vez por dia (meia-noite UTC)
     - cron: '0 0 * * *' 
-  workflow_dispatch: # Permite rodar manualmente
+  workflow_dispatch: # Permite rodar manualmente pela aba Actions
     
 jobs:
   build:
@@ -12,17 +12,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Criar pasta assets (se não existir)
-        run: mkdir -p assets
-        
       - name: Gerar Gráfico de Atividade Profissional
-        uses: ashutosh00710/github-readme-activity-graph@v2.0.2
+        # A versão v1 é mais estável e deve resolver o erro "Unable to resolve"
+        uses: ashutosh00710/github-readme-activity-graph@v1 
         with:
-          # O username que queremos puxar os dados (Seu perfil profissional)
+          # Seu username profissional
           USERNAME: romulosuperlogica
-          # O segredo que armazena a permissão de leitura
-          TOKEN: ${{ secrets.GH_TOKEN_PROFISSIONAL }}
-          # O arquivo de saída (a imagem que será injetada no README)
+          # O Segredo que armazena a permissão de leitura
+          TOKEN: ${{ secrets.GH_TOKEN_PROFISSIONAL }} 
+          # O arquivo que a Action irá gerar
           output_image: "assets/github-activity-graph.svg"
           
       - name: Commit Files (Salvar a nova imagem)
@@ -30,5 +28,6 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add -A
+          # O comando '|| echo' previne o erro se não houver alterações no gráfico
           git commit -m "🤖 Atualizar Calendário Profissional (Action)" || echo "Nenhuma alteração para commitar"
           git push
