@@ -1,7 +1,8 @@
-name: Calendário Profissional Rápido
+name: Estatísticas Profissionais (Números)
 
 on:
   schedule:
+    # Roda a Action automaticamente uma vez por dia (meia-noite UTC)
     - cron: '0 0 * * *' 
   workflow_dispatch:
     
@@ -11,25 +12,29 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Gerar Calendário de Contribuições (Minimalista)
+      - name: Gerar Card de Estatísticas (Números)
         uses: lowlighter/metrics@latest 
         with:
-          # TOKEN da sua conta profissional
+          # Seu token profissional seguro
           token: ${{ secrets.GH_TOKEN_PROFISSIONAL }}
 
           # O username que será analisado
           user: romulosuperlogica
           
-          # SAÍDA: Apontando para o arquivo que criamos na raiz
+          # SAÍDA: Apontando para o arquivo que você já criou na raiz
           output_dir: .
-          filename: github-metrics.svg 
+          filename: github-metrics-stats.svg # Mudei o nome do arquivo para diferenciar!
 
-          # CONFIGURAÇÃO MINIMALISTA:
+          # CONFIGURAÇÃO DE CARD:
           template: classic
           config_timezone: America/Sao_Paulo
-          # Usamos APENAS o módulo de calendário de contribuições
-          base: "" 
-          plugin_isocalendar: yes
+          
+          # BASE: activity - Exibe estatísticas de atividade (Commits, PRs, Issues)
+          base: activity 
+          
+          # Desativamos o calendário 3D que você não queria
+          plugin_isocalendar: no 
           
           # Garante que os dados privados sejam contados
           base_activity_owner: yes
+          base_activity_limit: 10
