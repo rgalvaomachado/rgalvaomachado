@@ -1,4 +1,4 @@
-name: Gerador de Cartão de Visita (Injeção Markdown - FIX)
+name: Gerador de Cartão de Visita (Injeção Markdown - FIX Final)
 
 on:
   schedule:
@@ -11,17 +11,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # Token necessário para o checkout e para o commit no final
           token: ${{ secrets.GH_TOKEN_PROFISSIONAL }}
 
-      # Passo 1: Busca dos Dados Profissionais via GraphQL
+      # Passo 1: Busca dos Dados Profissionais e Injeta no README
       - name: Fetch and Inject Data into README
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GH_TOKEN_PROFISSIONAL }}
           script: |
             const fs = require('fs');
-
+            
+            // 1. Definição da Query GraphQL
             const query = `
               query {
                 user(login: "romulosuperlogica") {
@@ -33,17 +33,18 @@ jobs:
                 }
               }`;
             
+            // 2. Execução da Query
             const result = await github.graphql(query);
             const contributions = result.user.contributionsCollection;
             
-            // Função para formatar números (ex: 1.271)
+            // 3. Formatação dos Dados
             const formatNumber = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
             const COMMITS = formatNumber(contributions.totalCommitContributions);
             const PRS_OPENED = formatNumber(contributions.totalPullRequestContributions);
             const PRS_REVIEWED = formatNumber(contributions.totalPullRequestReviewContributions);
 
-            // Conteúdo Markdown Final com injeção de dados (Template Literal)
+            // 4. Conteúdo Markdown Final (Template Literal - Sem recuo)
             const readmeContent = `
 # Esses são dados da minha conta profissional
 
@@ -70,7 +71,7 @@ jobs:
 
 Ficou com dúvida? Acesse diretamente meu perfil completo em [github.com/romulosuperlogica](https://github.com/romulosuperlogica).
 `;
-            // Escreve o conteúdo final no README.md
+            // 5. Escrita no Arquivo (Sem recuo)
             fs.writeFileSync('README.md', readmeContent);
 
       # Passo 2: Commit do Novo README.md
@@ -81,5 +82,4 @@ Ficou com dúvida? Acesse diretamente meu perfil completo em [github.com/romulos
           author_email: action@github.com
           message: 'chore(readme): Update professional card data (Markdown)'
           add: 'README.md'
-          # Usa o Token para permitir a escrita (commit) no repo
           token: ${{ secrets.GH_TOKEN_PROFISSIONAL }}
