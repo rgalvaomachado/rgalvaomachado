@@ -3,7 +3,7 @@
   <p>
     <a href="https://github.com/romulosuperlogica">
       <img 
-        src="./github-activity-radical.svg" 
+        src="./github-activity-profissional.svg" 
         alt="Estatísticas de Atividade Profissional" 
       />
     </a>
