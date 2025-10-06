@@ -1,4 +1,4 @@
-### Esses são meus dados da minha conta profissional
+### Esses são dados da minha conta profissional
 
 <p align="center">
   <a href="https://github.com/romulosuperlogica">
