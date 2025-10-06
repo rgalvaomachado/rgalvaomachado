@@ -13,12 +13,12 @@ jobs:
       - uses: actions/checkout@v4
       
       - name: Gerar Gráfico de Atividade Profissional
-        # AQUI ESTÁ A NOVA ACTION MAIS ESTÁVEL
-        uses: JamesIves/github-activity-readme@v1 
+        # ESTA É A CORREÇÃO FINAL, APONTANDO PARA A BRANCH 'main'
+        uses: JamesIves/github-activity-readme@main 
         with:
           # Seu username profissional
           USERNAME: romulosuperlogica
-          # O Segredo que armazena a permissão de leitura
+          # O Segredo com o Token de Leitura
           TOKEN: ${{ secrets.GH_TOKEN_PROFISSIONAL }} 
           # O arquivo que a Action irá gerar
           OUTPUT_PATH: "assets/github-activity-graph.svg"
