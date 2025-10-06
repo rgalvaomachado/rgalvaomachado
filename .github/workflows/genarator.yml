@@ -1,0 +1,70 @@
+name: Gerador de Cartão de Visita (Injeção Segura)
+
+on:
+  schedule:
+    - cron: '0 0 * * *' 
+  workflow_dispatch:
+
+jobs:
+  update_readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # É crucial que o token usado para o checkout tenha permissões para PUSH (write)
+          # para que a Action possa comitar a mudança no README.md
+          token: ${{ secrets.GH_TOKEN_PROFISSIONAL }}
+
+      # Passo 1: Busca dos Dados com o Token Seguro
+      - name: Fetch Professional Data via GraphQL
+        id: graphql
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GH_TOKEN_PROFISSIONAL }}
+          script: |
+            const query = `
+              query {
+                user(login: "romulosuperlogica") {
+                  contributionsCollection {
+                    totalCommitContributions
+                    totalPullRequestContributions
+                    totalPullRequestReviewContributions
+                  }
+                }
+              }`;
+            
+            const result = await github.graphql(query);
+            const contributions = result.user.contributionsCollection;
+            
+            // Formatador simples para números
+            const formatNumber = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+            // Saída dos dados para o próximo passo
+            core.setOutput('commits', formatNumber(contributions.totalCommitContributions));
+            core.setOutput('prs_opened', formatNumber(contributions.totalPullRequestContributions));
+            core.setOutput('prs_reviewed', formatNumber(contributions.totalPullRequestReviewContributions));
+            
+      # Passo 2: Injeção dos Dados no Template HTML
+      - name: Inject Data into HTML Template
+        run: |
+          COMMITS="${{ steps.graphql.outputs.commits }}"
+          PRS_OPENED="${{ steps.graphql.outputs.prs_opened }}"
+          PRS_REVIEWED="${{ steps.graphql.outputs.prs_reviewed }}"
+          
+          # Lê o template HTML (seu código) e faz a substituição dos IDs
+          cat README_TEMPLATE.md \
+            | sed "s|<span class=\"loading\">...</span>|${COMMITS}|g" \
+            | sed "s|<div class=\"number\" id=\"prs-opened\">${PRS_OPENED}<\|<div class=\"number\" id=\"prs-opened\">${PRS_OPENED}<\|g" \
+            | sed "s|<div class=\"number\" id=\"prs-reviewed\">${PRS_REVIEWED}<\|<div class=\"number\" id=\"prs-reviewed\">${PRS_REVIEWED}<\|g" \
+            > README.md
+
+      # Passo 3: Commit do Novo README.md
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: GitHub Actions
+          author_email: action@github.com
+          message: 'chore(readme): Update professional card data'
+          add: 'README.md'
+          # Usa o Token seguro para fazer o commit
+          token: ${{ secrets.GH_TOKEN_PROFISSIONAL }}
