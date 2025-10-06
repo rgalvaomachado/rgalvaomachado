@@ -1,7 +1,6 @@
-# Nome do Meu Projeto Incrível
+# Esses são dados da minha conta profissional
 
-Este é um projeto simples e legal.
-Adicione mais detalhes sobre o que ele faz aqui.
-
-## Como Rodar
-`npm install && npm start`
+**[@romulosuperlogica](https://github.com/romulosuperlogica)** | Desenvolvedor | Contribuições Profissionais
+<p align="center">
+</p>
+Ficou com dúvida? Acesse diretamente meu perfil completo em [github.com/romulosuperlogica](https://github.com/romulosuperlogica).
