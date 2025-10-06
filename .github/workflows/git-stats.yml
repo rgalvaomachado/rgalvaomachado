@@ -20,39 +20,39 @@ jobs:
       # Passo 2: Cria/Atualiza o conteúdo do README usando comandos Shell
       - name: Criar e Anexar Conteúdo ao README
         run: |
-          # 1. Definição das variáveis no Shell
-          COMMITS="10"
-          PRS_OPENED="20"
-          PRS_REVIEWED="33"
-          
-          # 2. Cria ou sobrescreve o arquivo README.md (use >)
-          echo "# Esses são dados da minha conta profissional" > README.md
-          
-          # 3. Anexa as linhas seguintes (use >>)
-          echo "" >> README.md
-          echo "**[@romulosuperlogica](https://github.com/romulosuperlogica)** | Desenvolvedor | Contribuições Profissionais" >> README.md
-          
-          # 4. Escapando as aspas duplas (ou use aspas simples)
-          echo "<p align="center">" >> README.md
-          echo "  <table align="center" style="text-align: center;">" >> README.md
-          echo "      <thead>" >> README.md
-          echo "          <tr>" >> README.md
-          echo "              <th style="font-size: 16px;">Commits (Último Ano)</th>" >> README.md
-          echo "              <th style="font-size: 16px;">PRs Abertos</th>" >> README.md
-          echo "              <th style="font-size: 16px;">Reviews Feitas</th>" >> README.md
-          echo "          </tr>" >> README.md
-          echo "      </thead>" >> README.md
-          echo "      <tbody>" >> README.md
-          echo "          <tr>" >> README.md
-          echo "              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">${COMMITS}</td>" >> README.md
-          echo "              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">${PRS_OPENED}</td>" >> README.md
-          echo "              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">${PRS_REVIEWED}</td>" >> README.md
-          echo "          </tr>" >> README.md
-          echo "      </tbody>" >> README.md
-          echo "  </table>" >> README.md
-          echo "</p>" >> README.md
+            # 1. Definição das variáveis no Shell
+            COMMITS="10"
+            PRS_OPENED="20"
+            PRS_REVIEWED="33"
+            
+            # 2. Cria ou sobrescreve o arquivo README.md
+            echo '# Esses são dados da minha conta profissional' > README.md
+            
+            # 3. Anexa as linhas seguintes
+            echo '' >> README.md
+            echo '**[@romulosuperlogica](https://github.com/romulosuperlogica)** | Desenvolvedor | Contribuições Profissionais' >> README.md
+            
+            # 4. HTML com aspas simples + variáveis concatenadas
+            echo '<p align="center">' >> README.md
+            echo '  <table align="center" style="text-align: center;">' >> README.md
+            echo '      <thead>' >> README.md
+            echo '          <tr>' >> README.md
+            echo '              <th style="font-size: 16px;">Commits (Último Ano)</th>' >> README.md
+            echo '              <th style="font-size: 16px;">PRs Abertos</th>' >> README.md
+            echo '              <th style="font-size: 16px;">Reviews Feitas</th>' >> README.md
+            echo '          </tr>' >> README.md
+            echo '      </thead>' >> README.md
+            echo '      <tbody>' >> README.md
+            echo '          <tr>' >> README.md
+            echo '              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">'"${COMMITS}"'</td>' >> README.md
+            echo '              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">'"${PRS_OPENED}"'</td>' >> README.md
+            echo '              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">'"${PRS_REVIEWED}"'</td>' >> README.md
+            echo '          </tr>' >> README.md
+            echo '      </tbody>' >> README.md
+            echo '  </table>' >> README.md
+            echo '</p>' >> README.md
 
-          echo "Ficou com dúvida? Acesse diretamente meu perfil completo em [github.com/romulosuperlogica](https://github.com/romulosuperlogica)." >> README.md
+            echo 'Ficou com dúvida? Acesse diretamente meu perfil completo em [github.com/romulosuperlogica](https://github.com/romulosuperlogica).' >> README.md
 
       # Passo 3: Commit e Push das alterações no README
       - name: Commit e Enviar o novo README.md
