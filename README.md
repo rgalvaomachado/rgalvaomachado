@@ -1,8 +1,8 @@
-### Calendário de Contribuições Profissionais
+### Minhas Estatísticas Profissionais
 
 <p align="center">
   <img 
-    src="./github-metrics.svg" 
-    alt="Calendário de Contribuições Profissional (Dinâmico)" 
+    src="./github-metrics-stats.svg" 
+    alt="Estatísticas Profissionais (Commits, PRs, Issues)" 
   />
 </p>
