@@ -12,9 +12,9 @@
       </thead>
       <tbody>
           <tr>
-              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">${COMMITS}</td>
-              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">${PRS_OPENED}</td>
-              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">${PRS_REVIEWED}</td>
+              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">10</td>
+              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">20</td>
+              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">33</td>
           </tr>
       </tbody>
   </table>
