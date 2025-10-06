@@ -1,0 +1,34 @@
+name: Atualizar Calendário Profissional
+
+on:
+  schedule:
+    # Roda a cada 24 horas (meia-noite UTC)
+    - cron: '0 0 * * *' 
+  workflow_dispatch: # Permite rodar manualmente
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Criar pasta assets (se não existir)
+        run: mkdir -p assets
+        
+      - name: Gerar Gráfico de Atividade Profissional
+        uses: ashutosh00710/github-readme-activity-graph@v2.0.2
+        with:
+          # O username que queremos puxar os dados (Seu perfil profissional)
+          USERNAME: romulosuperlogica
+          # O segredo que armazena a permissão de leitura
+          TOKEN: ${{ secrets.GH_TOKEN_PROFISSIONAL }}
+          # O arquivo de saída (a imagem que será injetada no README)
+          output_image: "assets/github-activity-graph.svg"
+          
+      - name: Commit Files (Salvar a nova imagem)
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git commit -m "🤖 Atualizar Calendário Profissional (Action)" || echo "Nenhuma alteração para commitar"
+          git push
