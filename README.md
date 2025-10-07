@@ -1,6 +1,7 @@
 # Gostou do que viu por aqui?
 
 O que acha de ver tambem meu overview profissional ?
+
 <p align="center">
   <table align="center" style="text-align: center;">
       <thead>
@@ -19,4 +20,6 @@ O que acha de ver tambem meu overview profissional ?
       </tbody>
   </table>
 </p>
+
+Desenvolvedor | **[@romulosuperlogica](https://github.com/romulosuperlogica)** | Desenvolvedor | Contribuições Profissionais
 Ficou com dúvida? Acesse diretamente meu perfil completo em **[@romulosuperlogica](https://github.com/romulosuperlogica)**
