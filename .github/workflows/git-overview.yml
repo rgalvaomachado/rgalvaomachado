@@ -60,10 +60,11 @@ jobs:
           
           # HTML com os dados dinâmicos
           echo '<p align="center">' >> README.md
+          echo '  <span align="center" style="text-align: center;">ultimos commits</span>' >> README.md
           echo '  <table align="center" style="text-align: center;">' >> README.md
           echo '      <thead>' >> README.md
           echo '          <tr>' >> README.md
-          echo '              <th style="font-size: 16px;">Commits (Total)</th>' >> README.md
+          echo '              <th style="font-size: 16px;">Commits</th>' >> README.md
           echo '              <th style="font-size: 16px;">PRs Abertos</th>' >> README.md
           echo '              <th style="font-size: 16px;">Reviews Feitas</th>' >> README.md
           echo '          </tr>' >> README.md
@@ -79,7 +80,7 @@ jobs:
           echo '</p>' >> README.md
           echo '' >> README.md
           
-          echo 'Desenvolvedor | **[@romulosuperlogica](https://github.com/romulosuperlogica)** | Desenvolvedor | Contribuições Profissionais' >> README.md
+          echo 'Ficou com dúvida? Acesse diretamente meu perfil completo em **[@romulosuperlogica](https://github.com/romulosuperlogica)** ' >> README.md
           echo 'Ficou com dúvida? Acesse diretamente meu perfil completo em **[@romulosuperlogica](https://github.com/romulosuperlogica)**' >> README.md
 
       # Passo 4: Commit e Push das alterações no README
