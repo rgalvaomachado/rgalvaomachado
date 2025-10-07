@@ -3,10 +3,11 @@
 O que acha de ver tambem meu overview profissional ?
 
 <p align="center">
+  <span align="center" style="text-align: center;">ultimos commits</span>
   <table align="center" style="text-align: center;">
       <thead>
           <tr>
-              <th style="font-size: 16px;">Commits (Total)</th>
+              <th style="font-size: 16px;">Commits</th>
               <th style="font-size: 16px;">PRs Abertos</th>
               <th style="font-size: 16px;">Reviews Feitas</th>
           </tr>
@@ -21,5 +22,5 @@ O que acha de ver tambem meu overview profissional ?
   </table>
 </p>
 
-Desenvolvedor | **[@romulosuperlogica](https://github.com/romulosuperlogica)** | Desenvolvedor | Contribuições Profissionais
+Ficou com dúvida? Acesse diretamente meu perfil completo em **[@romulosuperlogica](https://github.com/romulosuperlogica)** 
 Ficou com dúvida? Acesse diretamente meu perfil completo em **[@romulosuperlogica](https://github.com/romulosuperlogica)**
