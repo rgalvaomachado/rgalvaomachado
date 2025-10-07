@@ -53,9 +53,9 @@ jobs:
           PRS_REVIEWED="${{ steps.get_data.outputs.prs_reviewed }}"
 
           # Criar o README.md
-          echo '# Esses são dados da minha conta profissional' > README.md
+          echo '# Gostou do que viu por aqui?' > README.md
           echo '' >> README.md
-          echo '**[@romulosuperlogica](https://github.com/romulosuperlogica)** | Desenvolvedor | Contribuições Profissionais' >> README.md
+          echo 'O que acha de ver tambem meu overview profissional ?' >> README.md
           
           # HTML com os dados dinâmicos
           echo '<p align="center">' >> README.md
@@ -77,7 +77,7 @@ jobs:
           echo '  </table>' >> README.md
           echo '</p>' >> README.md
 
-          echo 'Ficou com dúvida? Acesse diretamente meu perfil completo em https://github.com/romulosuperlogica' >> README.md
+          echo 'Ficou com dúvida? Acesse diretamente meu perfil completo em **[@romulosuperlogica](https://github.com/romulosuperlogica)**' >> README.md
 
       # Passo 4: Commit e Push das alterações no README
       - name: Commit e Enviar o novo README.md
