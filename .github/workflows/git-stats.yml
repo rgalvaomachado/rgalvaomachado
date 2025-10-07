@@ -53,7 +53,7 @@ jobs:
           PRS_REVIEWED="${{ steps.get_data.outputs.prs_reviewed }}"
           
           # Criar o README.md
-          echo '# Gosta do que vê por aqui? O que acha de ver tambem meu overview profissional ?' > README.md
+          echo '# Gostou do que viu por aqui? O que acha de ver tambem meu overview profissional ?' > README.md
           echo '' >> README.md
           
           # HTML com os dados dinâmicos
