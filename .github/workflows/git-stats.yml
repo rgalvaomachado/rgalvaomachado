@@ -25,7 +25,7 @@ jobs:
         id: get_data
         run: |
           RESPONSE=$(curl --silent --location 'https://api.github.com/graphql' \
-            --header 'Authorization: bearer ${{ secrets.GITHUB_TOKEN }}' \
+            --header 'Authorization: bearer ${{ secrets.GH_PROFISSIONAL_TOKEN }}' \
             --header 'Content-Type: application/json' \
             --data '{"query":"query { user(login: \"romulosuperlogica\") { contributionsCollection { totalCommitContributions totalPullRequestContributions totalPullRequestReviewContributions } } }","variables":{}}')
           
@@ -76,7 +76,7 @@ jobs:
           echo '  </table>' >> README.md
           echo '</p>' >> README.md
 
-          echo 'Ficou com dúvida? Acesse diretamente meu perfil completo em **[@romulosuperlogica](https://github.com/romulosuperlogica)**' >> README.md
+          echo 'Ficou com dúvida? Acesse diretamente meu perfil completo em https://github.com/romulosuperlogica' >> README.md
 
       # Passo 4: Commit e Push das alterações no README
       - name: Commit e Enviar o novo README.md
