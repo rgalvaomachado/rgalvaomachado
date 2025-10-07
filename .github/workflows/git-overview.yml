@@ -81,7 +81,6 @@ jobs:
           echo '' >> README.md
           
           echo 'Ficou com dúvida? Acesse diretamente meu perfil completo em **[@romulosuperlogica](https://github.com/romulosuperlogica)** ' >> README.md
-          echo 'Ficou com dúvida? Acesse diretamente meu perfil completo em **[@romulosuperlogica](https://github.com/romulosuperlogica)**' >> README.md
 
       # Passo 4: Commit e Push das alterações no README
       - name: Commit e Enviar o novo README.md
