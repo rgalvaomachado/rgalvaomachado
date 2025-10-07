@@ -1,9 +1,7 @@
 name: Gerar README Simples
 
 on:
-  # Permite executar o workflow manualmente
   workflow_dispatch:
-  # Opcional: Executa uma vez, assim que o código for enviado (push) para a branch 'main'
   push:
     branches:
       - main
@@ -17,50 +15,69 @@ jobs:
       - name: Checkout do Repositório
         uses: actions/checkout@v4
         
-      # Passo 2: Cria/Atualiza o conteúdo do README usando comandos Shell
+      # Passo 2: Buscar dados da API do GitHub
+      - name: Buscar dados de contribuições
+        id: get_data
+        run: |
+          RESPONSE=$(curl --silent --location 'https://api.github.com/graphql' \
+            --header 'Authorization: bearer ${{ secrets.GH_PROFISSIONAL_TOKEN }}' \
+            --header 'Content-Type: application/json' \
+            --data '{"query":"query { user(login: \"romulosuperlogica\") { contributionsCollection { totalCommitContributions totalPullRequestContributions totalPullRequestReviewContributions } } }","variables":{}}')
+          
+          # Extrair os valores usando jq (já instalado no Ubuntu)
+          COMMITS=$(echo $RESPONSE | jq -r '.data.user.contributionsCollection.totalCommitContributions')
+          PRS_OPENED=$(echo $RESPONSE | jq -r '.data.user.contributionsCollection.totalPullRequestContributions')
+          PRS_REVIEWED=$(echo $RESPONSE | jq -r '.data.user.contributionsCollection.totalPullRequestReviewContributions')
+          
+          # Salvar nas outputs do step
+          echo "commits=$COMMITS" >> $GITHUB_OUTPUT
+          echo "prs_opened=$PRS_OPENED" >> $GITHUB_OUTPUT
+          echo "prs_reviewed=$PRS_REVIEWED" >> $GITHUB_OUTPUT
+          
+          # Debug: mostrar os valores
+          echo "Commits: $COMMITS"
+          echo "PRs Abertos: $PRS_OPENED"
+          echo "PRs Revisados: $PRS_REVIEWED"
+
+      # Passo 3: Criar/Atualizar o conteúdo do README
       - name: Criar e Anexar Conteúdo ao README
         run: |
-            # 1. Definição das variáveis no Shell
-            COMMITS="10"
-            PRS_OPENED="20"
-            PRS_REVIEWED="33"
-            
-            # 2. Cria ou sobrescreve o arquivo README.md
-            echo '# Esses são dados da minha conta profissional' > README.md
-            
-            # 3. Anexa as linhas seguintes
-            echo '' >> README.md
-            echo '**[@romulosuperlogica](https://github.com/romulosuperlogica)** | Desenvolvedor | Contribuições Profissionais' >> README.md
-            
-            # 4. HTML com aspas simples + variáveis concatenadas
-            echo '<p align="center">' >> README.md
-            echo '  <table align="center" style="text-align: center;">' >> README.md
-            echo '      <thead>' >> README.md
-            echo '          <tr>' >> README.md
-            echo '              <th style="font-size: 16px;">Commits (Último Ano)</th>' >> README.md
-            echo '              <th style="font-size: 16px;">PRs Abertos</th>' >> README.md
-            echo '              <th style="font-size: 16px;">Reviews Feitas</th>' >> README.md
-            echo '          </tr>' >> README.md
-            echo '      </thead>' >> README.md
-            echo '      <tbody>' >> README.md
-            echo '          <tr>' >> README.md
-            echo '              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">'"${COMMITS}"'</td>' >> README.md
-            echo '              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">'"${PRS_OPENED}"'</td>' >> README.md
-            echo '              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">'"${PRS_REVIEWED}"'</td>' >> README.md
-            echo '          </tr>' >> README.md
-            echo '      </tbody>' >> README.md
-            echo '  </table>' >> README.md
-            echo '</p>' >> README.md
+          # Usar as variáveis do passo anterior
+          COMMITS="${{ steps.get_data.outputs.commits }}"
+          PRS_OPENED="${{ steps.get_data.outputs.prs_opened }}"
+          PRS_REVIEWED="${{ steps.get_data.outputs.prs_reviewed }}"
+          
+          # Criar o README.md
+          echo '# Esses são dados da minha conta profissional' > README.md
+          echo '' >> README.md
+          echo '**[@romulosuperlogica](https://github.com/romulosuperlogica)** | Desenvolvedor | Contribuições Profissionais' >> README.md
+          
+          # HTML com os dados dinâmicos
+          echo '<p align="center">' >> README.md
+          echo '  <table align="center" style="text-align: center;">' >> README.md
+          echo '      <thead>' >> README.md
+          echo '          <tr>' >> README.md
+          echo '              <th style="font-size: 16px;">Commits (Total)</th>' >> README.md
+          echo '              <th style="font-size: 16px;">PRs Abertos</th>' >> README.md
+          echo '              <th style="font-size: 16px;">Reviews Feitas</th>' >> README.md
+          echo '          </tr>' >> README.md
+          echo '      </thead>' >> README.md
+          echo '      <tbody>' >> README.md
+          echo '          <tr>' >> README.md
+          echo '              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">'"${COMMITS}"'</td>' >> README.md
+          echo '              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">'"${PRS_OPENED}"'</td>' >> README.md
+          echo '              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">'"${PRS_REVIEWED}"'</td>' >> README.md
+          echo '          </tr>' >> README.md
+          echo '      </tbody>' >> README.md
+          echo '  </table>' >> README.md
+          echo '</p>' >> README.md
 
-            echo 'Ficou com dúvida? Acesse diretamente meu perfil completo em [github.com/romulosuperlogica](https://github.com/romulosuperlogica).' >> README.md
+          echo 'Ficou com dúvida? Acesse diretamente meu perfil completo em [github.com/romulosuperlogica](https://github.com/romulosuperlogica).' >> README.md
 
-      # Passo 3: Commit e Push das alterações no README
+      # Passo 4: Commit e Push das alterações no README
       - name: Commit e Enviar o novo README.md
         uses: EndBug/add-and-commit@v9
         with:
-          # Define a mensagem de commit
-          message: 'docs: Atualiza README.md com dados de perfil'
-          # Especifica o arquivo a ser adicionado
+          message: 'docs: Atualiza README.md com dados reais de contribuições'
           add: 'README.md'
-          # Usa o token padrão do GitHub Actions
           token: ${{ secrets.GITHUB_TOKEN }}
