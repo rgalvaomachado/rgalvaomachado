@@ -51,11 +51,11 @@ jobs:
           COMMITS="${{ steps.get_data.outputs.commits }}"
           PRS_OPENED="${{ steps.get_data.outputs.prs_opened }}"
           PRS_REVIEWED="${{ steps.get_data.outputs.prs_reviewed }}"
-          
+
           # Criar o README.md
-          echo '# Gostou do que viu por aqui?' > README.md
+          echo '# Esses são dados da minha conta profissional' > README.md
           echo '' >> README.md
-          echo 'O que acha de ver tambem meu overview profissional ?' > README.md
+          echo '**[@romulosuperlogica](https://github.com/romulosuperlogica)** | Desenvolvedor | Contribuições Profissionais' >> README.md
           
           # HTML com os dados dinâmicos
           echo '<p align="center">' >> README.md
