@@ -1,4 +1,4 @@
-# O que acha de ver tambem meu overview profissional ?
+O que acha de ver tambem meu overview profissional ?
 
 <p align="center">
   <table align="center" style="text-align: center;">
