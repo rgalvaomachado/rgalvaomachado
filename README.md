@@ -5,16 +5,16 @@
   <table align="center" style="text-align: center;">
       <thead>
           <tr>
-              <th style="font-size: 16px;">Commits (Último Ano)</th>
+              <th style="font-size: 16px;">Commits (Total)</th>
               <th style="font-size: 16px;">PRs Abertos</th>
               <th style="font-size: 16px;">Reviews Feitas</th>
           </tr>
       </thead>
       <tbody>
           <tr>
-              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">10</td>
-              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">20</td>
-              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">33</td>
+              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">271</td>
+              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">377</td>
+              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">188</td>
           </tr>
       </tbody>
   </table>
