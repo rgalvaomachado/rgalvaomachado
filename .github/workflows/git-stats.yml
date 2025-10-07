@@ -1,10 +1,15 @@
 name: Gerar README Simples
 
 on:
+  # Executa manualmente
   workflow_dispatch:
+  # Executa no push para main
   push:
     branches:
       - main
+  # ⭐ NOVO: Executa automaticamente todo dia às 00:00 UTC
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
   criar_readme:
@@ -20,7 +25,7 @@ jobs:
         id: get_data
         run: |
           RESPONSE=$(curl --silent --location 'https://api.github.com/graphql' \
-            --header 'Authorization: bearer ${{ secrets.GH_PROFISSIONAL_TOKEN }}' \
+            --header 'Authorization: bearer ${{ secrets.GITHUB_TOKEN }}' \
             --header 'Content-Type: application/json' \
             --data '{"query":"query { user(login: \"romulosuperlogica\") { contributionsCollection { totalCommitContributions totalPullRequestContributions totalPullRequestReviewContributions } } }","variables":{}}')
           
@@ -48,9 +53,8 @@ jobs:
           PRS_REVIEWED="${{ steps.get_data.outputs.prs_reviewed }}"
           
           # Criar o README.md
-          echo '# Esses são dados da minha conta profissional' > README.md
+          echo '# Gosta do que vê por aqui? O que acha de ver tambem meu overview profissional ?' > README.md
           echo '' >> README.md
-          echo '**[@romulosuperlogica](https://github.com/romulosuperlogica)** | Desenvolvedor | Contribuições Profissionais' >> README.md
           
           # HTML com os dados dinâmicos
           echo '<p align="center">' >> README.md
@@ -72,7 +76,7 @@ jobs:
           echo '  </table>' >> README.md
           echo '</p>' >> README.md
 
-          echo 'Ficou com dúvida? Acesse diretamente meu perfil completo em [github.com/romulosuperlogica](https://github.com/romulosuperlogica).' >> README.md
+          echo 'Ficou com dúvida? Acesse diretamente meu perfil completo em **[@romulosuperlogica](https://github.com/romulosuperlogica)**' >> README.md
 
       # Passo 4: Commit e Push das alterações no README
       - name: Commit e Enviar o novo README.md
