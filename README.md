@@ -1,6 +1,5 @@
-# Esses são dados da minha conta profissional
+# Gosta do que vê por aqui? O que acha de ver tambem meu overview profissional ?
 
-**[@romulosuperlogica](https://github.com/romulosuperlogica)** | Desenvolvedor | Contribuições Profissionais
 <p align="center">
   <table align="center" style="text-align: center;">
       <thead>
@@ -12,11 +11,11 @@
       </thead>
       <tbody>
           <tr>
-              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">271</td>
-              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">377</td>
-              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">188</td>
+              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">15</td>
+              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">0</td>
+              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">0</td>
           </tr>
       </tbody>
   </table>
 </p>
-Ficou com dúvida? Acesse diretamente meu perfil completo em [github.com/romulosuperlogica](https://github.com/romulosuperlogica).
+Ficou com dúvida? Acesse diretamente meu perfil completo em **[@romulosuperlogica](https://github.com/romulosuperlogica)**
