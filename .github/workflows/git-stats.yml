@@ -54,8 +54,7 @@ jobs:
           
           # Criar o README.md
           echo '# Gostou do que viu por aqui?' > README.md
-          echo '' >> README.md
-          echo '# O que acha de ver tambem meu overview profissional ?' > README.md
+          echo 'O que acha de ver tambem meu overview profissional ?' > README.md
           echo '' >> README.md
           
           # HTML com os dados dinâmicos
