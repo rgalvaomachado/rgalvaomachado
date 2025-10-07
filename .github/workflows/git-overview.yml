@@ -56,6 +56,7 @@ jobs:
           echo '# Gostou do que viu por aqui?' > README.md
           echo '' >> README.md
           echo 'O que acha de ver tambem meu overview profissional ?' >> README.md
+          echo '' >> README.md
           
           # HTML com os dados dinâmicos
           echo '<p align="center">' >> README.md
@@ -76,7 +77,9 @@ jobs:
           echo '      </tbody>' >> README.md
           echo '  </table>' >> README.md
           echo '</p>' >> README.md
-
+          echo '' >> README.md
+          
+          echo 'Desenvolvedor | **[@romulosuperlogica](https://github.com/romulosuperlogica)** | Desenvolvedor | Contribuições Profissionais' >> README.md
           echo 'Ficou com dúvida? Acesse diretamente meu perfil completo em **[@romulosuperlogica](https://github.com/romulosuperlogica)**' >> README.md
 
       # Passo 4: Commit e Push das alterações no README
