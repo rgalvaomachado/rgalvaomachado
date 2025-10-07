@@ -23,4 +23,3 @@ O que acha de ver tambem meu overview profissional ?
 </p>
 
 Ficou com dúvida? Acesse diretamente meu perfil completo em **[@romulosuperlogica](https://github.com/romulosuperlogica)** 
-Ficou com dúvida? Acesse diretamente meu perfil completo em **[@romulosuperlogica](https://github.com/romulosuperlogica)**
