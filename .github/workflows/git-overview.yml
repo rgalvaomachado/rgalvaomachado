@@ -31,17 +31,17 @@ jobs:
           
           # Extrair os valores usando jq (já instalado no Ubuntu)
           COMMITS=$(echo $RESPONSE | jq -r '.data.user.contributionsCollection.totalCommitContributions')
-          PRS_OPENED=$(echo $RESPONSE | jq -r '.data.user.contributionsCollection.totalPullRequestContributions')
+          PRS_CONTRIBUTIONS=$(echo $RESPONSE | jq -r '.data.user.contributionsCollection.totalPullRequestContributions')
           PRS_REVIEWED=$(echo $RESPONSE | jq -r '.data.user.contributionsCollection.totalPullRequestReviewContributions')
           
           # Salvar nas outputs do step
           echo "commits=$COMMITS" >> $GITHUB_OUTPUT
-          echo "prs_opened=$PRS_OPENED" >> $GITHUB_OUTPUT
+          echo "PRS_CONTRIBUTIONS=$PRS_CONTRIBUTIONS" >> $GITHUB_OUTPUT
           echo "prs_reviewed=$PRS_REVIEWED" >> $GITHUB_OUTPUT
           
           # Debug: mostrar os valores
           echo "Commits: $COMMITS"
-          echo "PRs Abertos: $PRS_OPENED"
+          echo "PRs Abertos: $PRS_CONTRIBUTIONS"
           echo "PRs Revisados: $PRS_REVIEWED"
 
       # Passo 3: Criar/Atualizar o conteúdo do README
@@ -49,7 +49,7 @@ jobs:
         run: |
           # Usar as variáveis do passo anterior
           COMMITS="${{ steps.get_data.outputs.commits }}"
-          PRS_OPENED="${{ steps.get_data.outputs.prs_opened }}"
+          PRS_CONTRIBUTIONS="${{ steps.get_data.outputs.PRS_CONTRIBUTIONS }}"
           PRS_REVIEWED="${{ steps.get_data.outputs.prs_reviewed }}"
 
           # Criar o README.md
@@ -60,19 +60,19 @@ jobs:
           
           # HTML com os dados dinâmicos
           echo '<p align="center">' >> README.md
-          echo '  <span align="center" style="text-align: center;">ultimos commits</span>' >> README.md
+          echo '  <span align="center" style="text-align: center;">Contributions</span>' >> README.md
           echo '  <table align="center" style="text-align: center;">' >> README.md
           echo '      <thead>' >> README.md
           echo '          <tr>' >> README.md
-          echo '              <th style="font-size: 16px;">Commits</th>' >> README.md
-          echo '              <th style="font-size: 16px;">PRs Abertos</th>' >> README.md
-          echo '              <th style="font-size: 16px;">Reviews Feitas</th>' >> README.md
+          echo '              <th style="font-size: 16px;">Commit</th>' >> README.md
+          echo '              <th style="font-size: 16px;">PullRequest</th>' >> README.md
+          echo '              <th style="font-size: 16px;">PullRequest Review</th>' >> README.md
           echo '          </tr>' >> README.md
           echo '      </thead>' >> README.md
           echo '      <tbody>' >> README.md
           echo '          <tr>' >> README.md
           echo '              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">'"${COMMITS}"'</td>' >> README.md
-          echo '              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">'"${PRS_OPENED}"'</td>' >> README.md
+          echo '              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">'"${PRS_CONTRIBUTIONS}"'</td>' >> README.md
           echo '              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">'"${PRS_REVIEWED}"'</td>' >> README.md
           echo '          </tr>' >> README.md
           echo '      </tbody>' >> README.md
