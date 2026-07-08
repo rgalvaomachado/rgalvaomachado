@@ -15,8 +15,8 @@ O que acha de ver tambem meu overview profissional ?
       <tbody>
           <tr>
               <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">462</td>
-              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">521</td>
-              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">214</td>
+              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">522</td>
+              <td style="font-size: 24px; font-weight: bold; padding: 10px 20px;">215</td>
           </tr>
       </tbody>
   </table>
